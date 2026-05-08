@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Wind, Thermometer, Shield, Zap, BarChart3, ChevronRight, Globe, CloudRain } from 'lucide-react';
+import { Wind, Thermometer, Shield, Zap, BarChart3, ChevronRight, Globe, CloudRain, Bell } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import PublicLayout from '../../components/layout/PublicLayout';
 
@@ -10,7 +10,7 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative pt-12 md:pt-20 pb-20 md:pb-32 overflow-hidden transition-colors duration-500">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="z-10 text-center lg:text-left order-2 lg:order-1">
+          <div className="z-10 text-center lg:text-left order-1 lg:order-1">
             <div className="inline-flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-transparent dark:border-emerald-500/20">
               <span className="flex h-2 w-2 rounded-full bg-emerald-600 dark:bg-emerald-500 animate-pulse"></span>
               <span>Propulsez votre supervision météo</span>
@@ -19,6 +19,36 @@ const Home = () => {
               Maîtrisez votre climat <br className="hidden sm:block"/>
               <span className="text-primary italic"> avec précision</span>
             </h1>
+
+            {/* Image mobile intercalée */}
+            <div className="relative lg:hidden mb-10">
+              <div className="relative bg-white dark:bg-slate-900/50 rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-800 p-3 transform hover:rotate-1 transition-all duration-700">
+                <div className="bg-slate-900 rounded-[1.5rem] overflow-hidden p-6 aspect-video flex flex-col justify-between border border-slate-800">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">Station active</p>
+                      <h3 className="text-white text-xl font-black tracking-tight">ST-2024-08</h3>
+                    </div>
+                    <div className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[10px] font-black border border-emerald-400/50 shadow-lg shadow-emerald-500/20">
+                      LIVE
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { icon: <Thermometer className="text-orange-400" size={16} />, label: "Temp", val: "24.5°C" },
+                      { icon: <Wind className="text-sky-400" size={16} />, label: "Vent", val: "12km/h" },
+                      { icon: <Zap className="text-yellow-400" size={16} />, label: "Bat", val: "98%" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="bg-slate-800/50 backdrop-blur-sm p-3 rounded-xl border border-slate-700">
+                        <div className="mb-1">{item.icon}</div>
+                        <p className="text-slate-500 text-[8px] uppercase font-black">{item.label}</p>
+                        <p className="text-white text-[11px] font-black">{item.val}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
             <p className="text-lg md:text-xl text-slate-800 dark:text-white mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-bold transition-colors duration-500">
               Découvrez <strong>MétéoPro</strong>, l'écosystème intelligent qui connecte 
               votre exploitation à la puissance du Cloud. Une surveillance constante pour une sérénité totale.
@@ -35,7 +65,7 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="relative order-1 lg:order-2 mb-8 lg:mb-0">
+          <div className="relative hidden lg:block mb-8 lg:mb-0">
             <div className="absolute -top-10 -right-10 md:-top-20 md:-right-20 w-64 md:w-96 h-64 md:h-96 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute -bottom-10 -left-10 md:-bottom-20 md:-left-20 w-64 md:w-96 h-64 md:h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
             
@@ -80,12 +110,12 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {[
-              { icon: <Zap />, title: "Temps Réel", desc: "Données actualisées chaque seconde via MQTT et protocoles IoT basse latence haute performance." },
-              { icon: <Shield />, title: "Sécurisé", desc: "Chiffrement de bout en bout, protocoles TLS et gestion granulaire des rôles." },
+              { icon: <Zap />, title: "Temps Réel", desc: "Vos données sont mises à jour en direct, seconde après seconde. Suivez l'évolution de votre climat instantanément, sans aucun délai." },
+              { icon: <Shield />, title: "Sécurisé", desc: "Vos informations sont protégées par les plus hauts standards de sécurité. Vos données restent privées et vous seul décidez qui peut y accéder." },
               { icon: <BarChart3 />, title: "Analyses", desc: "Visualisez les tendances avec nos graphiques haute résolution et rapports automatiques." },
               { icon: <Globe />, title: "Multi-Stations", desc: "Gérez votre flotte mondiale de stations depuis un centre de contrôle unifié." },
               { icon: <CloudRain />, title: "Précision", desc: "Algorithmes de post-traitement avancés pour une fiabilité de donnée professionnelle." },
-              { icon: <ChevronRight />, title: "API Ouverte", desc: "Connectez vos outils métiers et automatisez vos workflows via notre API REST." },
+              { icon: <Bell />, title: "Alertes Intelligentes", desc: "Ne soyez plus jamais surpris. Recevez des notifications instantanées sur votre téléphone dès qu'un seuil critique est atteint." },
             ].map((f, i) => (
               <div key={i} className="group bg-white dark:bg-slate-900/30 p-8 md:p-10 rounded-[2rem] border border-slate-200 dark:border-slate-800 hover:border-primary/20 dark:hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 cursor-pointer">
                 <div className="bg-slate-50 dark:bg-slate-800 group-hover:bg-primary/10 text-slate-400 group-hover:text-primary w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-colors duration-500">
