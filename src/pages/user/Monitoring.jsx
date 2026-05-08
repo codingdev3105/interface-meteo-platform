@@ -16,7 +16,11 @@ import {
   Battery,
   ChevronLeft,
   Zap,
-  AlertCircle
+  AlertCircle,
+  Globe,
+  Network,
+  Database,
+  Server
 } from 'lucide-react';
 
 const Monitoring = () => {

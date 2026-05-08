@@ -17,7 +17,9 @@ import {
   Database,
   ShieldAlert,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  Signal,
+  FileText
 } from 'lucide-react';
 
 const UserDashboard = () => {
