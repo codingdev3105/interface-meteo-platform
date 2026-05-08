@@ -4,9 +4,10 @@ import axios from 'axios';
  * MétéoPro Systems - Real API Service
  */
 
-const localhost ='http://localhost:5000/api';
-const vercel ='https://backend-meteo-app.vercel.app/api';
-const API_URL =vercel;
+const vercel ='https://backend-meteo-app.vercel.app';
+const API_URL = `${vercel}/api`;
+
+export { vercel as BASE_URL };
 
 // Create axios instance with base URL
 const instance = axios.create({

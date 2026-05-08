@@ -17,7 +17,7 @@ import {
   X
 } from 'lucide-react';
 import PublicLayout from '../../components/layout/PublicLayout';
-import { api } from '../../api/api';
+import { api, BASE_URL } from '../../api/api';
 
 const Documentation = () => {
   const [docs, setDocs] = useState([]);
@@ -149,16 +149,16 @@ const Documentation = () => {
                                   <div className="rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner mt-6 bg-slate-50 dark:bg-slate-950/50">
                                     {step.mediaType === 'video' ? (
                                       <video 
-                                        src={`http://localhost:5000${step.mediaUrl}`} 
+                                        src={`${BASE_URL}${step.mediaUrl}`} 
                                         controls 
                                         className="w-full aspect-video object-cover" 
                                       />
                                     ) : (
                                       <img 
-                                        src={`http://localhost:5000${step.mediaUrl}`} 
+                                        src={`${BASE_URL}${step.mediaUrl}`} 
                                         alt={step.title} 
                                         className="w-full h-auto object-cover cursor-pointer hover:opacity-90 transition-all" 
-                                        onClick={() => window.open(`http://localhost:5000${step.mediaUrl}`, '_blank')}
+                                        onClick={() => window.open(`${BASE_URL}${step.mediaUrl}`, '_blank')}
                                       />
                                     )}
                                   </div>

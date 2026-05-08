@@ -3,7 +3,7 @@ import DashboardLayout from '../../components/layout/DashboardLayout';
 import Button from '../../components/ui/Button';
 import Modal from '../../components/ui/Modal';
 import { useToast } from '../../components/ui/Toast';
-import { api } from '../../api/api';
+import { api, BASE_URL } from '../../api/api';
 import { 
   Book, 
   Monitor, 
@@ -366,13 +366,12 @@ const AdminDocs = () => {
                         {step.mediaUrl && (
                           <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 group/media shadow-xl">
                             {step.mediaType === 'video' ? (
-                              <video src={`http://localhost:5000${step.mediaUrl}`} className="w-full h-56 object-cover" controls />
+                              <video src={`${BASE_URL}${step.mediaUrl}`} className="w-full h-56 object-cover" controls />
                             ) : (
                               <img 
-                                src={`http://localhost:5000${step.mediaUrl}`} 
-                                alt="" 
-                                className="w-full h-56 object-cover cursor-pointer hover:scale-105 transition-transform duration-700" 
-                                onClick={() => window.open(`http://localhost:5000${step.mediaUrl}`, '_blank')}
+                                src={`${BASE_URL}${step.mediaUrl}`} 
+                                className="w-full h-56 object-cover cursor-pointer hover:opacity-90"
+                                onClick={() => window.open(`${BASE_URL}${step.mediaUrl}`, '_blank')}
                               />
                             )}
                             <button 
