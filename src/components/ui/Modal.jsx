@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, AlertCircle, CheckCircle, Info, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

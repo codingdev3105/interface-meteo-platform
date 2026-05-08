@@ -1,24 +1,15 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Modal from '../../components/ui/Modal';
 import { api, sensorLibrary } from '../../api/api';
 import { 
-  Calendar, 
-  Download, 
   Filter, 
   LineChart as ChartIcon, 
-  Search, 
   ChevronRight, 
-  Clock, 
   Database,
-  Cpu,
-  Zap,
-  RotateCcw,
   Activity,
-  ArrowUp,
-  ArrowDown,
   Info
 } from 'lucide-react';
 import { 
@@ -28,7 +19,6 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend, 
   ResponsiveContainer,
   AreaChart,
   Area

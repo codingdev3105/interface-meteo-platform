@@ -1,5 +1,5 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
-import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
+import { useState, createContext, useContext } from 'react';
+import { CheckCircle, AlertCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ToastContext = createContext();

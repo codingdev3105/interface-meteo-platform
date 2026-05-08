@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
@@ -57,6 +57,7 @@ const UserDashboard = () => {
   };
 
   useEffect(() => {
+
     fetchData();
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);

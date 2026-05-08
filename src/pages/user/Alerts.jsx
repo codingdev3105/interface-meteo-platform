@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
 import Badge from '../../components/ui/Badge';
@@ -18,7 +18,6 @@ import {
   Power,
   ChevronRight,
   ShieldAlert,
-  Search
 } from 'lucide-react';
 
 const Alerts = () => {
@@ -41,6 +40,7 @@ const Alerts = () => {
     description: ''
   });
 
+
   const fetchData = async () => {
     try {
       const [logsRes, thresholdsRes, stationsRes, sensorsRes] = await Promise.all([
@@ -59,8 +59,8 @@ const Alerts = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
+  
     fetchData();
   }, []);
 
