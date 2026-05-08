@@ -7,7 +7,6 @@ import Modal from '../../components/ui/Modal';
 import { 
   Terminal, 
   Search, 
-  Clock, 
   Shield, 
   Activity, 
   Cpu, 
