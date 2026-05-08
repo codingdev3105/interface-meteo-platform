@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
-import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 import { api } from '../../api/api';
 import Modal from '../../components/ui/Modal';
@@ -17,8 +16,7 @@ import {
   AlertCircle,
   Info,
   Calendar,
-  RotateCcw,
-  X
+  RotateCcw
 } from 'lucide-react';
 
 const Logs = () => {

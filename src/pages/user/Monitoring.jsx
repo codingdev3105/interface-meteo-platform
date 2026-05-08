@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import { api } from '../../api/api';
 import { 
@@ -13,16 +12,11 @@ import {
   Clock,
   RefreshCw,
   Cpu,
-  Share2,
   Sun,
   Battery,
   ChevronLeft,
   Zap,
-  Globe,
-  Database,
-  AlertCircle,
-  Server,
-  Network
+  AlertCircle
 } from 'lucide-react';
 
 const Monitoring = () => {
@@ -32,7 +26,7 @@ const Monitoring = () => {
   const [loading, setLoading] = useState(true);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const s = await api.getStationByHardwareId(id);
       const status = await api.getStationStatus(id);
@@ -43,13 +37,13 @@ const Monitoring = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 3000);
     return () => clearInterval(interval);
-  }, [id]);
+  }, [fetchData]);
 
   const isOffline = liveState?.lastUpdate 
     ? (new Date().getTime() - new Date(liveState.lastUpdate).getTime() > 35000) 

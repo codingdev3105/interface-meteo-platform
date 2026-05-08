@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import { api } from '../../api/api';
 import { 
@@ -11,8 +10,7 @@ import {
   Activity, 
   Clock, 
   Server, 
-  AlertCircle,
-  X
+  AlertCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ui/Toast';
@@ -32,7 +30,7 @@ const Stations = () => {
   const navigate = useNavigate();
   const { addToast } = useToast();
 
-  const fetchStations = async () => {
+  const fetchStations = useCallback(async () => {
     try {
       const res = await api.getStations();
       setStations(Array.isArray(res) ? res : (res?.stations || []));
@@ -41,11 +39,11 @@ const Stations = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [addToast]);
 
   useEffect(() => {
     fetchStations();
-  }, []);
+  }, [fetchStations]);
 
   const handleDelete = async () => {
     try {

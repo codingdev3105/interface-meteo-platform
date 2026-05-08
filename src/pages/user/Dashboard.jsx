@@ -6,17 +6,14 @@ import { api, sensorLibrary } from '../../api/api';
 import { useToast } from '../../components/ui/Toast';
 import { 
   Activity, 
-  Signal, 
   Cpu,
   Globe,
   Bell,
   Clock,
   Zap,
-  FileText,
   Loader2,
   Server,
   ArrowUp,
-  ChevronRight,
   Database,
   ShieldAlert,
   CheckCircle2,

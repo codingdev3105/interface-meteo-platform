@@ -4,7 +4,7 @@ import axios from 'axios';
  * MétéoPro Systems - Real API Service
  */
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://backend-meteo-app.vercel.app/api';
+const API_URL = 'https://backend-meteo-app.vercel.app/api';
 
 // Create axios instance with base URL
 const instance = axios.create({
