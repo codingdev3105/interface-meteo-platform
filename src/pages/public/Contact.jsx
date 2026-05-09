@@ -26,9 +26,9 @@ const Contact = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 text-left max-w-lg mx-auto lg:mx-0">
               {[
-                { icon: <Mail size={24} />, title: "Email", val: "support@meteo-pro.systems" },
-                { icon: <Phone size={24} />, title: "Téléphone", val: "+33 (0)1 23 45 67 89" },
-                { icon: <MapPin size={24} />, title: "Bureaux", val: "Parc Technologique, 75000 Paris" }
+                { icon: <Mail size={24} />, title: "Email", val: "yahiahanani2001@gmail.com" },
+                { icon: <Phone size={24} />, title: "Téléphone", val: "+213 773198320" },
+                { icon: <MapPin size={24} />, title: "Bureaux", val: "Algérie, Alger, Bordj El Bahri" }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center space-x-6 bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-500 group hover:border-primary/30">
                   <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-xl text-primary transition-colors group-hover:bg-primary group-hover:text-white">
