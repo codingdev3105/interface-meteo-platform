@@ -62,7 +62,7 @@ const Contact = () => {
                       required 
                       type="text" 
                       className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600" 
-                      placeholder="Jean Dupont" 
+                      placeholder="Mohammed" 
                     />
                   </div>
                   <div className="space-y-2">
@@ -71,7 +71,7 @@ const Contact = () => {
                       required 
                       type="email" 
                       className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600" 
-                      placeholder="jean@entreprise.com" 
+                      placeholder="mohammed@gmail.com" 
                     />
                   </div>
                 </div>
