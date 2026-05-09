@@ -115,7 +115,7 @@ const AdminUsers = () => {
 
 
   return (
-    <DashboardLayout title="Gestion Utilisateurs" isAdmin={true}>
+    <DashboardLayout title="Utilisateurs" isAdmin={true}>
       {loading ? (
         <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
           <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
@@ -246,13 +246,13 @@ const AdminUsers = () => {
                   </div>
                   <input 
                     type="text" 
-                    placeholder="Rechercher par nom ou email..."
-                    className="input-premium pl-14 w-full md:w-80 shadow-lg shadow-slate-100/50 dark:shadow-none"
+                    placeholder="Rechercher..."
+                    className="input-premium pl-20 w-full md:w-80 shadow-lg shadow-slate-100/50 dark:shadow-none"
                   />
                </div>
                <Button onClick={() => { setIsEditMode(false); setIsModalOpen(true); }} className="w-full md:w-auto flex items-center justify-center space-x-3 py-4 px-8 shadow-xl shadow-primary/20">
                   <Plus size={20} strokeWidth={3} />
-                  <span className="font-black uppercase tracking-widest text-[11px]">Nouveau Client</span>
+                  <span className="font-black uppercase tracking-widest text-[11px]">Ajouter</span>
                </Button>
             </div>
           </div>

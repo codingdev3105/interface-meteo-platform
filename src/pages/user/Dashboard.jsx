@@ -230,10 +230,37 @@ const UserDashboard = () => {
           <div className="bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-100/40 dark:shadow-none p-8 transition-colors duration-500">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-xl font-black text-slate-900 dark:text-white">État de connexion des stations</h2>
-              <div className="px-4 py-1.5 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-black rounded-full border border-blue-100 dark:border-blue-500/20 flex items-center">
+              <div className="hidden sm:flex px-4 py-1.5 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-black rounded-full border border-blue-100 dark:border-blue-500/20 items-center">
                 <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
                 LIVE MONITORING
               </div>
+            </div>
+
+            {/* Alertes Mobiles Intercalées */}
+            <div className="lg:hidden mb-10 space-y-4">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-[10px] font-black text-rose-500 uppercase tracking-[0.2em]">Live Monitoring (Alertes)</p>
+                {unseenAlertsCount > 0 && (
+                  <span className="bg-rose-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full animate-pulse">
+                    {unseenAlertsCount} NOUVELLES
+                  </span>
+                )}
+              </div>
+              {sortedGroups.length > 0 ? sortedGroups.slice(0, 2).map((group, i) => (
+                <div key={i} className="p-4 bg-rose-50/50 dark:bg-rose-500/5 border border-rose-100 dark:border-rose-500/20 rounded-[1.5rem] flex items-center space-x-4">
+                  <div className="p-2 bg-white dark:bg-slate-900 text-rose-500 rounded-lg shadow-sm border border-rose-100 dark:border-rose-500/20">
+                    <ShieldAlert size={16} />
+                  </div>
+                  <p className="text-xs font-black text-slate-800 dark:text-white truncate flex-1">{group.message}</p>
+                </div>
+              )) : (
+                <div className="p-4 bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/20 rounded-[1.5rem] flex items-center space-x-4">
+                  <div className="p-2 bg-white dark:bg-slate-900 text-emerald-500 rounded-lg shadow-sm">
+                    <CheckCircle2 size={16} />
+                  </div>
+                  <p className="text-xs font-black text-emerald-600 dark:text-emerald-400">Système stable - Aucune alerte</p>
+                </div>
+              )}
             </div>
 
             <div className="space-y-4">

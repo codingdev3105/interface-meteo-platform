@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
 import Badge from '../../components/ui/Badge';
@@ -37,8 +37,36 @@ const Alerts = () => {
     sensorType: 'Température',
     operator: '>',
     thresholdValue: 0,
-    description: ''
   });
+
+  // Filtrer les capteurs selon la station sélectionnée
+  const availableSensors = useMemo(() => {
+    if (!newThreshold.stationId) return [];
+    
+    const selectedStation = stations.find(s => s.hardwareId === newThreshold.stationId);
+    if (!selectedStation) return dbSensors; // Fallback si non trouvé
+
+    // Liste des abréviations détectées sur la station (Hub + Noeuds)
+    // On essaie de récupérer les abréviations dynamiquement
+    const stationAbbrs = new Set();
+    
+    // Si la station a une liste de capteurs (HUB)
+    if (Array.isArray(selectedStation.sensors)) {
+      selectedStation.sensors.forEach(abbr => stationAbbrs.add(abbr));
+    }
+    
+    // Si la station a des données de nœuds avec des capteurs
+    if (Array.isArray(selectedStation.sensorNodesData)) {
+        selectedStation.sensorNodesData.forEach(node => {
+            if (node.sensors) Object.keys(node.sensors).forEach(abbr => stationAbbrs.add(abbr));
+        });
+    }
+
+    // Si on a trouvé des abréviations, on filtre. Sinon on montre tout par sécurité
+    if (stationAbbrs.size === 0) return dbSensors;
+
+    return dbSensors.filter(s => stationAbbrs.has(s.abbreviation));
+  }, [newThreshold.stationId, stations, dbSensors]);
 
 
   const fetchData = async () => {
@@ -310,11 +338,14 @@ const Alerts = () => {
                       <Sliders size={18} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-800 dark:text-white flex items-center">
-                        {t.name || `${t.sensorType} ${t.operator} ${t.thresholdValue}`}
-                        {!t.isActive && <span className="ml-2 text-[10px] uppercase font-black text-slate-400 italic">(Désactivé)</span>}
+                      <h4 className="font-bold text-slate-800 dark:text-white flex items-center flex-wrap gap-2">
+                        {t.name} 
+                        <span className="px-2 py-0.5 bg-primary/10 dark:bg-primary/20 rounded text-[10px] text-primary font-black border border-primary/20">
+                          {t.operator} {t.thresholdValue}
+                        </span>
+                        {!t.isActive && <span className="ml-1 text-[10px] uppercase font-black text-slate-400 italic">(Désactivé)</span>}
                       </h4>
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black mt-0.5">
+                      <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black mt-1">
                         {getStationName(t.stationId)} • {t.sensorType}
                       </p>
                     </div>
@@ -350,31 +381,35 @@ const Alerts = () => {
         ) : (
           <form onSubmit={handleCreateThreshold} className="space-y-5 animate-in fade-in slide-in-from-bottom-2 duration-300">
             <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Nom de l'alerte</label>
-                <input 
-                  type="text" 
-                  required
-                  placeholder="Ex: Alerte Température Haute"
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400/50"
-                  value={newThreshold.name}
-                  onChange={(e) => setNewThreshold({...newThreshold, name: e.target.value})}
-                />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Nom de l'alerte</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="Ex: Alerte Gel"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400/50"
+                    value={newThreshold.name}
+                    onChange={(e) => setNewThreshold({...newThreshold, name: e.target.value})}
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Station cible</label>
-                <select 
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer appearance-none"
-                  value={newThreshold.stationId}
-                  onChange={(e) => setNewThreshold({...newThreshold, stationId: e.target.value})}
-                  required
-                >
-                  <option value="">Sélectionner une station</option>
-                  {stations.map(s => (
-                    <option key={s._id} value={s.hardwareId}>{s.name} ({s.hardwareId})</option>
-                  ))}
-                </select>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Station cible</label>
+                  <select 
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer appearance-none"
+                    value={newThreshold.stationId}
+                    onChange={(e) => {
+                        setNewThreshold({...newThreshold, stationId: e.target.value, sensorType: ''});
+                    }}
+                    required
+                  >
+                    <option value="">Choisir...</option>
+                    {stations.map(s => (
+                      <option key={s._id} value={s.hardwareId}>{s.name} ({s.hardwareId})</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -383,13 +418,17 @@ const Alerts = () => {
                   className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer appearance-none"
                   value={newThreshold.sensorType}
                   onChange={(e) => setNewThreshold({...newThreshold, sensorType: e.target.value})}
+                  required
+                  disabled={!newThreshold.stationId}
                 >
-                  {/* Priorité aux capteurs de la DB, fallback sur sensorLibrary */}
-                  {dbSensors.length > 0 ? dbSensors.map(s => (
+                  <option value="">{newThreshold.stationId ? "Sélectionner un capteur" : "Sélectionnez d'abord une station"}</option>
+                  {availableSensors.length > 0 ? availableSensors.map(s => (
                     <option key={s._id} value={s.name}>{s.name} ({s.abbreviation})</option>
-                  )) : Object.entries(sensorLibrary).map(([key, data]) => (
-                    <option key={key} value={data.name}>{data.name}</option>
-                  ))}
+                  )) : (
+                    newThreshold.stationId && Object.entries(sensorLibrary).map(([key, data]) => (
+                        <option key={key} value={data.name}>{data.name}</option>
+                    ))
+                  )}
                 </select>
               </div>
 

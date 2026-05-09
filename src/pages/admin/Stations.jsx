@@ -157,7 +157,7 @@ const AdminStations = () => {
   };
 
   return (
-    <DashboardLayout title="Stations Météo" isAdmin={true}>
+    <DashboardLayout title="Stations" isAdmin={true}>
       {/* Modal Capteur */}
       <Modal 
         isOpen={isModalOpen} 
@@ -413,7 +413,7 @@ const AdminStations = () => {
             <input 
               type="text" 
               placeholder="Rechercher une station..."
-              className="input-premium pl-14 w-full md:w-80"
+              className="input-premium pl-20 w-full md:w-80"
             />
           </div>
           

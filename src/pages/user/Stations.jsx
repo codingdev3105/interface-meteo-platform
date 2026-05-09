@@ -98,7 +98,7 @@ const Stations = () => {
   );
 
   return (
-    <DashboardLayout title="Mes Stations">
+    <DashboardLayout title="Monitoring">
       {/* Header Actions */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-12">
         <div className="relative w-full lg:w-[500px] group">
@@ -110,7 +110,7 @@ const Stations = () => {
             placeholder="Rechercher parmi vos stations..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="input-premium pl-16 w-full shadow-2xl shadow-slate-100/50 dark:shadow-none py-5"
+            className="input-premium pl-20 w-full shadow-2xl shadow-slate-100/50 dark:shadow-none py-5"
           />
         </div>
         <Button 
@@ -163,11 +163,11 @@ const Stations = () => {
                 {/* Info Area */}
                 <div className="space-y-4 mb-12">
                    <div className="flex items-center text-[12px] text-slate-500 dark:text-slate-400 font-bold">
-                    <Clock size={16} className="mr-3 text-slate-300 dark:text-slate-600" />
+                    <Clock size={16} className="mr-3 text-slate-300 dark:bg-slate-600" />
                     <span>Mise à jour: {new Date(station.updatedAt || Date.now()).toLocaleString()}</span>
                   </div>
                   <div className="flex items-center text-[12px] text-slate-500 dark:text-slate-400 font-bold">
-                    <Activity size={16} className="mr-3 text-slate-300 dark:text-slate-600" />
+                    <Activity size={16} className="mr-3 text-slate-300 dark:bg-slate-600" />
                     <span>Statut: <span className={station.status === 'active' || station.status === 'online' ? 'text-primary' : 'text-slate-400'}>{station.status === 'active' || station.status === 'online' ? 'Opérationnel' : 'Hors-ligne'}</span></span>
                   </div>
                 </div>
@@ -192,12 +192,12 @@ const Stations = () => {
                    </div>
                    
                    <button 
-                     onClick={() => navigate(`/user/stations/${station.hardwareId}`)}
-                     className="flex items-center space-x-3 py-4 px-8 bg-primary text-white rounded-2xl font-black text-[11px] uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 group/btn"
-                   >
-                     <Activity size={20} className="group-hover/btn:scale-110 transition-transform" />
-                     <span>Monitorer</span>
-                   </button>
+                      onClick={() => navigate(`/user/stations/${station.hardwareId}`)}
+                      className="flex items-center space-x-3 py-3 px-4 sm:py-4 sm:px-8 bg-primary text-white rounded-2xl font-black text-[10px] sm:text-[11px] uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 group/btn w-auto"
+                    >
+                      <Activity size={18} className="group-hover/btn:scale-110 transition-transform" />
+                      <span>Monitorer</span>
+                    </button>
                 </div>
               </div>
             </div>

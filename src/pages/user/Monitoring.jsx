@@ -68,7 +68,7 @@ const Monitoring = () => {
   };
 
   return (
-    <DashboardLayout title={loading ? "Monitoring..." : station ? `Monitoring : ${station.name}` : "Monitoring"}>
+    <DashboardLayout title="Monitoring">
       {loading ? (
         <div className="min-h-[70vh] flex flex-col items-center justify-center space-y-4 transition-colors duration-500">
           <RefreshCw className="w-12 h-12 animate-spin text-primary/30" />

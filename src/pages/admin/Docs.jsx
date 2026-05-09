@@ -191,7 +191,7 @@ const AdminDocs = () => {
   };
 
   return (
-    <DashboardLayout title="Gestion de la Documentation" isAdmin={true}>
+    <DashboardLayout title="Documentation" isAdmin={true}>
       <input 
         type="file" 
         ref={fileInputRef} 

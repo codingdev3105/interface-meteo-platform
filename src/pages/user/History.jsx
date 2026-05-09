@@ -187,7 +187,7 @@ const History = () => {
   };
 
   return (
-    <DashboardLayout title="Historiques & Analyses">
+    <DashboardLayout title="Archives">
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10">
         <div className="flex items-center space-x-6">
            <div className="p-4 bg-primary/10 rounded-2xl">
@@ -202,12 +202,20 @@ const History = () => {
            </div>
         </div>
 
-        <div className="flex items-center space-x-3 w-full lg:w-auto">
-          {/* Node Selector (Extracted from modal) */}
-          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
+          <button 
+            onClick={() => setShowFilterModal(true)}
+            className="flex items-center justify-center space-x-3 px-6 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-primary transition-all shadow-xl shadow-slate-200/50 dark:shadow-none w-full sm:w-auto order-1 sm:order-2"
+          >
+            <Filter size={18} className="text-primary" />
+            <span className="text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-widest">Filtrer</span>
+          </button>
+
+          {/* Node Selector */}
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl border border-slate-200 dark:border-slate-700 w-full sm:w-auto order-2 sm:order-1 overflow-x-auto">
              <button 
                 onClick={() => setFilters({...filters, nodeId: 'HUB'})}
-                className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap flex-1 sm:flex-none ${
                   filters.nodeId === 'HUB' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500'
                 }`}
              >
@@ -217,7 +225,7 @@ const History = () => {
                 <button 
                   key={nodeId}
                   onClick={() => setFilters({...filters, nodeId})}
-                  className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                  className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap flex-1 sm:flex-none ${
                     filters.nodeId === nodeId ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500'
                   }`}
                 >
@@ -225,14 +233,6 @@ const History = () => {
                 </button>
              ))}
           </div>
-
-          <button 
-            onClick={() => setShowFilterModal(true)}
-            className="flex items-center space-x-3 px-6 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-primary transition-all shadow-xl shadow-slate-200/50 dark:shadow-none"
-          >
-            <Filter size={18} className="text-primary" />
-            <span className="text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-widest">Filtrer</span>
-          </button>
         </div>
       </div>
 
