@@ -50,7 +50,7 @@ const PublicLayout = ({ children }) => {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-8 font-bold text-slate-600 dark:text-white">
+          <div className="hidden 2xl:flex items-center space-x-8 font-bold text-slate-600 dark:text-white">
             {navLinks.map(link => (
               <NavLink 
                 key={link.to} 
@@ -66,7 +66,7 @@ const PublicLayout = ({ children }) => {
           </div>
 
           {/* Desktop Auth & Theme Toggle */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden 2xl:flex items-center space-x-4">
             <button 
               onClick={toggleDarkMode}
               className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-white hover:text-primary transition-all duration-300"
@@ -84,7 +84,7 @@ const PublicLayout = ({ children }) => {
           </div>
 
           {/* Mobile Menu Trigger & Theme Toggle */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="2xl:hidden flex items-center space-x-4">
             <button 
               onClick={toggleDarkMode}
               className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-white"
@@ -102,7 +102,7 @@ const PublicLayout = ({ children }) => {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-white dark:bg-[#020617] z-[1000] md:hidden transition-all duration-500 ease-in-out ${
+      <div className={`fixed inset-0 bg-white dark:bg-[#020617] z-[1000] 2xl:hidden transition-all duration-500 ease-in-out ${
         isMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
       }`}>
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
