@@ -66,12 +66,12 @@ const Sidebar = ({ isAdmin = false, collapsed, setCollapsed, onClose }) => {
         {!collapsed && (
           <button 
             onClick={() => setCollapsed(true)}
-            className="text-slate-400 hover:text-primary xl:block hidden transition-colors"
+            className="text-slate-400 hover:text-primary 2xl:block hidden transition-colors"
           >
             <Menu size={24} />
           </button>
         )}
-        <button onClick={onClose} className="xl:hidden text-slate-400">
+        <button onClick={onClose} className="2xl:hidden text-slate-400">
           <X size={24} />
         </button>
       </div>

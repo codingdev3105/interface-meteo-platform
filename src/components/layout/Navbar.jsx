@@ -8,7 +8,7 @@ const Navbar = ({ title, onMenuClick }) => {
   return (
     <header className="h-20 bg-white dark:bg-[#020617] border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-40 transition-colors duration-500">
       <div className="flex items-center space-x-4">
-        <button onClick={onMenuClick} className="xl:hidden text-slate-500 dark:text-slate-400 hover:text-primary">
+        <button onClick={onMenuClick} className="2xl:hidden text-slate-500 dark:text-slate-400 hover:text-primary">
           <Menu size={24} />
         </button>
         <h2 className="text-xl font-black text-slate-800 dark:text-white tracking-tight">{title}</h2>
