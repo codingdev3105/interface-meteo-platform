@@ -15,7 +15,7 @@ const Navbar = ({ title, onMenuClick }) => {
       </div>
 
       <div className="flex items-center space-x-6">
-        <div className="hidden md:flex items-center bg-slate-50 dark:bg-slate-900 px-4 py-2.5 rounded-2xl w-80 border border-slate-100 dark:border-slate-800 focus-within:ring-2 ring-primary/20 transition-all">
+        <div className="hidden 2xl:flex items-center bg-slate-50 dark:bg-slate-900 px-4 py-2.5 rounded-2xl w-80 border border-slate-100 dark:border-slate-800 focus-within:ring-2 ring-primary/20 transition-all">
           <Search size={18} className="text-slate-400" />
           <input 
             type="text" 
@@ -38,13 +38,13 @@ const Navbar = ({ title, onMenuClick }) => {
             <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white dark:border-[#020617]"></span>
           </button>
           
-          <div className="w-px h-8 bg-slate-200 dark:bg-slate-800 mx-2 hidden sm:block"></div>
+          <div className="w-px h-8 bg-slate-200 dark:bg-slate-800 mx-2 hidden 2xl:block"></div>
 
           <div 
             onClick={() => window.location.href = user.role === 'admin' ? '/admin/profile' : '/user/profile'}
             className="flex items-center space-x-3 cursor-pointer group"
           >
-            <div className="text-right hidden sm:block">
+            <div className="text-right hidden 2xl:block">
               <p className="text-sm font-black text-slate-900 dark:text-white leading-none capitalize group-hover:text-primary transition-colors">{user.username}</p>
               <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">
                 {user.role === 'admin' ? 'Administrateur' : 'Utilisateur'}
