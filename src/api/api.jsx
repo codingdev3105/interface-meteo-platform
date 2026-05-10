@@ -8,11 +8,13 @@ const local = 'http://localhost:5000';
 const vercel ='https://backend-meteo-app.vercel.app';
 
 // Switch automatique selon l'environnement
-const API_URL = window.location.hostname === 'localhost' 
-  ? `${local}/api` 
-  : `${vercel}/api`;
+const isLocal = window.location.hostname === 'localhost';
+const API_URL = isLocal ? `${local}/api` : `${vercel}/api`;
+const BASE_URL = isLocal ? local : vercel;
 
-export { vercel as BASE_URL };
+console.log(`🔌 API Service connecté à : ${API_URL}`);
+
+export { BASE_URL };
 
 // Create axios instance with base URL
 const instance = axios.create({
