@@ -283,7 +283,15 @@ const History = () => {
                         itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
                         labelStyle={{ color: '#64748b', fontSize: '10px', marginBottom: '4px', textTransform: 'uppercase' }}
                       />
-                      <Area type="monotone" dataKey={abbr} stroke={meta.color} strokeWidth={4} fillOpacity={1} fill={`url(#grad-${abbr})`} />
+                      <Area 
+                        type="monotone" 
+                        dataKey={abbr} 
+                        stroke={meta.color} 
+                        strokeWidth={4} 
+                        fillOpacity={1} 
+                        fill={`url(#grad-${abbr})`} 
+                        connectNulls={true} 
+                      />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
