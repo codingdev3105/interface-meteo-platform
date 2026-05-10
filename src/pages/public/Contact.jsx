@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Phone, Send, CheckCircle, Loader2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
-import { BASE_URL, sendContactMessage } from '../../api/api';
+import {  sendContactMessage } from '../../api/api';
 import PublicLayout from '../../components/layout/PublicLayout';
 
 const Contact = () => {

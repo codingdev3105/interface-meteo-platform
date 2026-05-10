@@ -6,7 +6,11 @@ import axios from 'axios';
 
 const local = 'http://localhost:5000';
 const vercel ='https://backend-meteo-app.vercel.app';
-const API_URL = `${local}/api`;
+
+// Switch automatique selon l'environnement
+const API_URL = window.location.hostname === 'localhost' 
+  ? `${local}/api` 
+  : `${vercel}/api`;
 
 export { vercel as BASE_URL };
 
