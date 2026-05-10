@@ -4,8 +4,9 @@ import axios from 'axios';
  * MétéoPro Systems - Real API Service
  */
 
+const local = 'http://localhost:5000';
 const vercel ='https://backend-meteo-app.vercel.app';
-const API_URL = `${vercel}/api`;
+const API_URL = `${local}/api`;
 
 export { vercel as BASE_URL };
 

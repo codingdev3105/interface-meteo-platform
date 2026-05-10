@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Phone, Send, CheckCircle, Loader2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
+import { BASE_URL } from '../../api/api';
 import PublicLayout from '../../components/layout/PublicLayout';
 
 const Contact = () => {
@@ -18,7 +19,8 @@ const Contact = () => {
     setLoading(true);
     
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/contact`, {
+      // On utilise BASE_URL qui est défini dans src/api/api.jsx
+      const response = await fetch(`${BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
