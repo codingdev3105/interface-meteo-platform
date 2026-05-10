@@ -1,14 +1,43 @@
-import React, { useState } from 'react';
-import { Mail, MapPin, Phone, Send, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle, Loader2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import PublicLayout from '../../components/layout/PublicLayout';
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: 'Support technique IoT',
+    message: ''
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || ''}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Erreur lors de l'envoi du message.");
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert("Impossible de contacter le serveur.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -60,6 +89,9 @@ const Contact = () => {
                     <label className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest ml-1">Nom complet</label>
                     <input 
                       required 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       type="text" 
                       className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600" 
                       placeholder="Mohammed" 
@@ -69,6 +101,9 @@ const Contact = () => {
                     <label className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest ml-1">Email professionnel</label>
                     <input 
                       required 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       type="email" 
                       className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600" 
                       placeholder="mohammed@gmail.com" 
@@ -78,7 +113,12 @@ const Contact = () => {
                 <div className="space-y-2">
                   <label className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest ml-1">Sujet de votre demande</label>
                   <div className="relative">
-                    <select className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white appearance-none">
+                    <select 
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white appearance-none"
+                    >
                       <option>Support technique IoT</option>
                       <option>Devis pour parc de stations</option>
                       <option>Intégration API / Cloud</option>
@@ -93,14 +133,27 @@ const Contact = () => {
                   <label className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest ml-1">Message</label>
                   <textarea 
                     required 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows="6" 
                     className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-900 dark:text-white resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600" 
                     placeholder="Comment pouvons-nous vous aider ?"
                   ></textarea>
                 </div>
-                <Button type="submit" className="w-full py-5 text-lg font-black flex items-center justify-center space-x-3 shadow-xl shadow-primary/20">
-                  <Send size={20} />
-                  <span>Envoyer ma demande</span>
+                <Button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full py-5 text-lg font-black flex items-center justify-center space-x-3 shadow-xl shadow-primary/20"
+                >
+                  {loading ? (
+                    <Loader2 size={24} className="animate-spin" />
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      <span>Envoyer ma demande</span>
+                    </>
+                  )}
                 </Button>
               </form>
             )}
