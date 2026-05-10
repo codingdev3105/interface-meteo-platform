@@ -265,3 +265,12 @@ export const api = {
     return response.data;
   }
 };
+// --- CONTACT ---
+export const sendContactMessage = async (contactData) => {
+  try {
+    const response = await instance.post('/contact', contactData);
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error("Erreur de connexion");
+  }
+};
