@@ -10,7 +10,7 @@ const vercel ='https://backend-meteo-app.vercel.app';
 // Switch automatique selon l'environnement
 const isLocal = window.location.hostname === 'localhost';
 const API_URL = isLocal ? `${local}/api` : `${vercel}/api`;
-const BASE_URL =  vercel ;
+const BASE_URL = isLocal ? local : vercel;
 
 console.log(`🔌 API Service connecté à : ${API_URL}`);
 
