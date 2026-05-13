@@ -16,6 +16,7 @@ import Monitoring from './pages/user/Monitoring';
 import Alerts from './pages/user/Alerts';
 import History from './pages/user/History';
 import Logs from './pages/user/Logs';
+import Localisation from './pages/user/Localisation';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
@@ -46,6 +47,7 @@ function App() {
           <Route path="/user" element={<ProtectedRoute allowedRoles={['user', 'admin']}><Outlet /></ProtectedRoute>}>
             <Route index path="dashboard" element={<UserDashboard />} />
             <Route path="stations" element={<Stations />} />
+            <Route path="stations/localisations" element={<Localisation />} />
             <Route path="stations/:id" element={<Monitoring />} />
             <Route path="history" element={<History />} />
             <Route path="alerts" element={<Alerts />} />

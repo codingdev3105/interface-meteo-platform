@@ -10,7 +10,8 @@ import {
   Activity, 
   Clock, 
   Server, 
-  AlertCircle
+  AlertCircle,
+  Map as MapIcon
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ui/Toast';
@@ -25,7 +26,9 @@ const Stations = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editName, setEditName] = useState('');
-  const [newStation, setNewStation] = useState({ name: '', hardwareId: '' });
+  const [editLat, setEditLat] = useState('36.7525');
+  const [editLng, setEditLng] = useState('3.04197');
+  const [newStation, setNewStation] = useState({ name: '', hardwareId: '', lat: '36.7525', lng: '3.04197' });
   
   const navigate = useNavigate();
   const { addToast } = useToast();
@@ -58,7 +61,10 @@ const Stations = () => {
 
   const handleUpdate = async () => {
     try {
-      await api.updateStation(selectedStation._id, { name: editName });
+      await api.updateStation(selectedStation._id, { 
+        name: editName,
+        location: { lat: parseFloat(editLat), lng: parseFloat(editLng) }
+      });
       addToast("Station mise à jour", "success");
       setShowSettingsModal(false);
       fetchStations();
@@ -72,10 +78,13 @@ const Stations = () => {
       return addToast("Veuillez remplir tous les champs", "warning");
     }
     try {
-      await api.registerStation(newStation);
+      await api.registerStation({
+        ...newStation,
+        location: { lat: parseFloat(newStation.lat), lng: parseFloat(newStation.lng) }
+      });
       addToast("Nouvelle station enregistrée", "success");
       setShowAddModal(false);
-      setNewStation({ name: '', hardwareId: '' });
+      setNewStation({ name: '', hardwareId: '', lat: '36.7525', lng: '3.04197' });
       fetchStations();
     } catch (err) {
       addToast(err.response?.data?.message || "Erreur lors de l'ajout", "error");
@@ -85,6 +94,8 @@ const Stations = () => {
   const openSettings = (station) => {
     setSelectedStation(station);
     setEditName(station.name);
+    setEditLat(station.location?.lat || '36.7525');
+    setEditLng(station.location?.lng || '3.04197');
     setShowSettingsModal(true);
   };
 
@@ -113,13 +124,24 @@ const Stations = () => {
             className="input-premium pl-20 w-full shadow-2xl shadow-slate-100/50 dark:shadow-none py-5"
           />
         </div>
-        <Button 
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center justify-center space-x-3 py-5 px-10 shadow-2xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
-        >
-          <Plus size={24} strokeWidth={3} />
-          <span className="font-black uppercase tracking-widest text-[11px]">Enregistrer une Station</span>
-        </Button>
+        <div className="flex flex-wrap gap-4">
+          <Button 
+            onClick={() => navigate('/user/stations/localisations')}
+            variant="secondary"
+            className="flex items-center justify-center space-x-3 py-5 px-8 shadow-xl hover:scale-105 active:scale-95 transition-all border-primary/20 text-primary"
+          >
+            <MapIcon size={24} />
+            <span className="font-black uppercase tracking-widest text-[11px]">Voir sur la Carte</span>
+          </Button>
+
+          <Button 
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center justify-center space-x-3 py-5 px-10 shadow-2xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
+          >
+            <Plus size={24} strokeWidth={3} />
+            <span className="font-black uppercase tracking-widest text-[11px]">Enregistrer une Station</span>
+          </Button>
+        </div>
       </div>
 
       {/* Stations Grid */}
@@ -248,6 +270,29 @@ const Stations = () => {
             />
           </div>
 
+          <div className="grid grid-cols-2 gap-6">
+            <div className="relative">
+              <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">Latitude</label>
+              <input 
+                type="number" 
+                step="any"
+                value={editLat}
+                onChange={(e) => setEditLat(e.target.value)}
+                className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary/50 outline-none transition-all font-bold text-sm"
+              />
+            </div>
+            <div className="relative">
+              <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">Longitude</label>
+              <input 
+                type="number" 
+                step="any"
+                value={editLng}
+                onChange={(e) => setEditLng(e.target.value)}
+                className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary/50 outline-none transition-all font-bold text-sm"
+              />
+            </div>
+          </div>
+
           <div className="flex space-x-4 pt-4">
             <Button variant="secondary" className="flex-1 py-4" onClick={() => setShowSettingsModal(false)}>Annuler</Button>
             <Button className="flex-1 py-4 shadow-xl shadow-primary/20" onClick={handleUpdate}>Mettre à jour</Button>
@@ -326,6 +371,31 @@ const Stations = () => {
                 />
               </div>
            </div>
+
+           <div className="grid grid-cols-2 gap-6">
+              <div className="relative">
+                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">Latitude</label>
+                <input 
+                  type="number" 
+                  step="any"
+                  placeholder="36.7525"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary/50 outline-none transition-all font-bold text-sm"
+                  value={newStation.lat}
+                  onChange={(e) => setNewStation({...newStation, lat: e.target.value})}
+                />
+              </div>
+              <div className="relative">
+                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">Longitude</label>
+                <input 
+                  type="number" 
+                  step="any"
+                  placeholder="3.04197"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary/50 outline-none transition-all font-bold text-sm"
+                  value={newStation.lng}
+                  onChange={(e) => setNewStation({...newStation, lng: e.target.value})}
+                />
+              </div>
+            </div>
 
            <div className="pt-4 flex space-x-4">
               <Button variant="secondary" className="flex-1 py-4" onClick={() => setShowAddModal(false)}>Annuler</Button>
